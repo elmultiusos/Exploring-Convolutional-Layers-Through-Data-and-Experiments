@@ -78,6 +78,7 @@ venv\Scripts\activate
 pip install tensorflow
 pip install fastapi uvicorn[standard] python-multipart
 pip install numpy Pillow requests matplotlib pandas
+pip install scipy
 
 # 3. Verificar instalación
 python -c "import tensorflow as tf; print(tf.__version__)"
