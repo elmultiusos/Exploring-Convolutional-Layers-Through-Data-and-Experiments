@@ -55,7 +55,6 @@ ucmerced-deployment/
 
 - Python 3.9-3.12 (NO Python 3.13)
 - Carpeta `images_train_test_val` con el dataset organizado
-  Dataset Link: https://www.kaggle.com/datasets/apollo2506/landuse-scene-classification
 - 8GB RAM recomendado
 - GPU opcional (para entrenamiento más rápido)
 
@@ -78,7 +77,6 @@ venv\Scripts\activate
 pip install tensorflow
 pip install fastapi uvicorn[standard] python-multipart
 pip install numpy Pillow requests matplotlib pandas
-pip install scipy
 
 # 3. Verificar instalación
 python -c "import tensorflow as tf; print(tf.__version__)"
@@ -189,15 +187,15 @@ Abre tu navegador en: **http://localhost:8000/docs**
 
 ### Endpoints Disponibles
 
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/` | Información básica |
-| GET | `/health` | Estado de la API |
-| GET | `/model/info` | Detalles del modelo |
-| GET | `/classes` | Lista de 21 clases |
-| GET | `/examples` | Ejemplos con descripciones |
-| POST | `/predict` | **Clasificar imagen** |
-| POST | `/batch/predict` | Clasificación en batch |
+| Método | Endpoint         | Descripción                |
+| ------ | ---------------- | -------------------------- |
+| GET    | `/`              | Información básica         |
+| GET    | `/health`        | Estado de la API           |
+| GET    | `/model/info`    | Detalles del modelo        |
+| GET    | `/classes`       | Lista de 21 clases         |
+| GET    | `/examples`      | Ejemplos con descripciones |
+| POST   | `/predict`       | **Clasificar imagen**      |
+| POST   | `/batch/predict` | Clasificación en batch     |
 
 ### Ejemplo de Uso
 
@@ -234,9 +232,9 @@ curl -X POST "http://localhost:8000/predict" \
   "class_id": 7,
   "confidence": 0.8542,
   "top_3_predictions": [
-    {"class": "forest", "confidence": 0.8542},
-    {"class": "chaparral", "confidence": 0.0892},
-    {"class": "agricultural", "confidence": 0.0234}
+    { "class": "forest", "confidence": 0.8542 },
+    { "class": "chaparral", "confidence": 0.0892 },
+    { "class": "agricultural", "confidence": 0.0234 }
   ]
 }
 ```
@@ -295,7 +293,7 @@ Dense(21, softmax)
 ✅ **Dropout**: Previene overfitting (0.25 conv, 0.5 dense)  
 ✅ **Data Augmentation**: Rotación, zoom, flip horizontal  
 ✅ **Adam Optimizer**: Learning rate 0.001  
-✅ **Early Stopping**: Paciencia de 5 epochs  
+✅ **Early Stopping**: Paciencia de 5 epochs
 
 ### Métricas
 
@@ -308,21 +306,23 @@ Dense(21, softmax)
 
 ### Baseline vs CNN
 
-| Modelo | Arquitectura | Accuracy | Top-3 | Parámetros |
-|--------|--------------|----------|-------|------------|
-| Baseline | Dense only | ~45-55% | N/A | ~2.5M |
-| CNN (3×3) | 4 Conv blocks | **75-85%** | **93-96%** | ~1.8M |
-| CNN (5×5) | 4 Conv blocks | 72-82% | 91-95% | ~2.1M |
+| Modelo    | Arquitectura  | Accuracy   | Top-3      | Parámetros |
+| --------- | ------------- | ---------- | ---------- | ---------- |
+| Baseline  | Dense only    | ~45-55%    | N/A        | ~2.5M      |
+| CNN (3×3) | 4 Conv blocks | **75-85%** | **93-96%** | ~1.8M      |
+| CNN (5×5) | 4 Conv blocks | 72-82%     | 91-95%     | ~2.1M      |
 
 ### Análisis por Clase
 
 **Fáciles de clasificar:**
+
 - airplane (>90%)
 - baseballdiamond (>90%)
 - tenniscourt (>90%)
 - runway (>88%)
 
 **Difíciles de clasificar:**
+
 - denseresidential vs mediumresidential (~70%)
 - buildings vs denseresidential (~72%)
 - chaparral vs forest (~75%)
@@ -438,24 +438,6 @@ IMG_WIDTH = 64
 
 Ver **TROUBLESHOOTING-WINDOWS.txt** para más soluciones.
 
----
-
-## 🎯 Cumplimiento de Requisitos de la Tarea
-
-| Requisito | Estado | Ubicación |
-|-----------|--------|-----------|
-| EDA del dataset | ✅ | Notebook sección 2 |
-| Justificación dataset | ✅ | Notebook sección 1 |
-| Modelo baseline (no-CNN) | ✅ | Notebook sección 4 |
-| Arquitectura CNN diseñada | ✅ | Notebook sección 5 |
-| Experimentos controlados | ✅ | Notebook sección 6 (kernel size) |
-| Interpretación arquitectónica | ✅ | Notebook sección 7 |
-| Deployment | ✅ | API con Swagger UI |
-| Código limpio y ejecutable | ✅ | Todos los archivos |
-| README con diagramas | ✅ | Este documento |
-
----
-
 ## 📚 Referencias
 
 **Paper Original:**
@@ -475,37 +457,9 @@ snewsam@ucmerced.edu
 
 Este proyecto es para propósitos educativos. El dataset UC Merced es de dominio público (USGS imagery).
 
----
+## Author
 
-## ✨ Características Destacadas
-
-🎯 **Swagger UI Completo**: Prueba la API visualmente  
-🌍 **21 Clases de Uso de Tierra**: Aplicación real  
-📊 **Top-3 Predictions**: Confianza en múltiples clases  
-🔬 **Notebook Detallado**: Análisis completo con visualizaciones  
-⚡ **API REST Profesional**: Lista para integración  
-🐳 **Docker Ready**: Fácil deployment en producción  
-📈 **Métricas Completas**: Accuracy, Top-3, Loss curves  
-🎨 **Data Augmentation**: Mejora generalización  
+Juan Sebastian Buitrago Piñeros
+Universidad Escuela Colombiana de Ingenieria Julio Garavito
 
 ---
-
-## 🚀 Próximos Pasos
-
-1. **Entrenar con imágenes 256×256**: Mejor accuracy (~85-90%)
-2. **Transfer Learning**: Usar ResNet50 o EfficientNet
-3. **Visualización de Activaciones**: Ver qué aprende cada capa
-4. **Deployment en Cloud**: AWS, GCP, Azure
-5. **Aplicación Web**: Frontend interactivo
-6. **Modelo Ensemble**: Combinar múltiples CNNs
-
----
-
-**¿Listo para comenzar?** 
-
-1. Ejecuta `install-windows.bat`
-2. Entrena con `python save_model_ucmerced.py`
-3. Inicia API con `python api_ucmerced.py`
-4. Abre http://localhost:8000/docs
-
-¡Buena suerte! 🎉
