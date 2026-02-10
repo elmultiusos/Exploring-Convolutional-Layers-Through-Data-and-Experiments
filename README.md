@@ -55,6 +55,7 @@ ucmerced-deployment/
 
 - Python 3.9-3.12 (NO Python 3.13)
 - Carpeta `images_train_test_val` con el dataset organizado
+  Dataset Link: https://www.kaggle.com/datasets/apollo2506/landuse-scene-classification
 - 8GB RAM recomendado
 - GPU opcional (para entrenamiento más rápido)
 
